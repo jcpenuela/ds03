@@ -1,23 +1,29 @@
 # Check if exists a directory where download and unzip data
-if(!file.exists("files")) { dir.create("files") }
 
-
-
-
-
-
-dataurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-# Determine what OS is running to select a method in download statement
-
-if(Sys.info()["sysname"] == "Windows") {
-  download.file(url = dataurl, destfile = "files/dataset.zip", mode = "wb")
-} else {
-  download.file(url = dataurl, destfile = "files/dataset.zip", mode = "wb", method = "curl")
+if(!file.exists("UCI HAR Dataset")) { 
+    # files are not in the same directory... we will get it
+  print("Files not found. We will download it now")
+    dataurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    # Determine what OS is running to select a method in download statement
+    
+    if(Sys.info()["sysname"] == "Windows") {
+      download.file(url = dataurl, destfile = "dataset.zip", mode = "wb")
+    } else {
+      download.file(url = dataurl, destfile = "dataset.zip", mode = "wb", method = "curl")
+    }
+    print("Files downloaded")
+    # unpack data files
+    unzip("dataset.zip", list = FALSE, exdir = ".", unzip = "unzip")
+    print("Files unzipped")
 }
-# unpack data files
-unzip("files/dataset.zip", list = FALSE, exdir = "files", unzip = "unzip")
+setwd("UCI HAR Dataset")
 
-print("Files unzipped")
+
+
+
+
+
+
 
 # ############################################################################
 # 1. Merges the training and the test sets to create one data set.
@@ -25,13 +31,13 @@ print("Files unzipped")
 # We are going to use dplyr library for several ops.
 library(dplyr)
 # Read files
-X_train <- read.table(file = "files/UCI HAR Dataset/train/X_train.txt", sep = "")
-y_train <- read.table(file = "files/UCI HAR Dataset/train/y_train.txt")
-subject_train <- read.table(file = "files/UCI HAR Dataset/train/subject_train.txt")
+X_train <- read.table(file = "train/X_train.txt", sep = "")
+y_train <- read.table(file = "train/y_train.txt")
+subject_train <- read.table(file = "train/subject_train.txt")
 
-X_test <- read.table(file = "files/UCI HAR Dataset/test/X_test.txt", sep = "")
-y_test <- read.table(file = "files/UCI HAR Dataset/test/y_test.txt")
-subject_test <- read.table(file = "files/UCI HAR Dataset/test/subject_test.txt")
+X_test <- read.table(file = "test/X_test.txt", sep = "")
+y_test <- read.table(file = "test/y_test.txt")
+subject_test <- read.table(file = "test/subject_test.txt")
 
 # Make an union of datasets to obtain a simple dataset with test and train data
 X <- bind_rows(X_test, X_train)
@@ -45,7 +51,7 @@ print("Datasets merged")
 #    measurement.
 
 # Load features to select all of them with words required "mean" and "std"
-features <- read.table(file = "files/UCI HAR Dataset/features.txt", sep =" ")
+features <- read.table(file = "features.txt", sep =" ")
 # get the numbers of the columns to extract
 columns_to_extract <- features[grep("mean|std",features$V2),]
 # subset X for get a new X with only needed columns
@@ -74,7 +80,7 @@ print("Dataset with needed columns")
 # 3. Uses descriptive activity names to name the activities in the data set
 
 # load activity_labels.txt for change
-activity_labels <- read.table(file = "files/UCI HAR Dataset/activity_labels.txt", sep = " ")
+activity_labels <- read.table(file = "activity_labels.txt", sep = " ")
 
 # change the subject for its label in activity_
 W <- select(merge(W, activity_labels, by.y = "V1", by.x = "y"), -y) %>% rename(y=V2)
@@ -108,6 +114,7 @@ print("Column names normalized")
 #    with the average of each variable for each activity and each subject.
 
 W.mean <- group_by(W, subject, activity) %>% summarise_each(funs(mean))
+setwd("..")
 write.table(W.mean, file = "end_data.txt")
 
 print("DONE")

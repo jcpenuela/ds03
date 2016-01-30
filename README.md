@@ -35,6 +35,10 @@ The files contained in this repository are:
 ## Running script
 
 You can run the code in `run_analysis.R` within RStudio or from a R console. There are no neccesary any parameters to execute the script.
+The working directory in RStudio must be the directory where you hold the `UCI HAR Dataset` directory. If not, the sript will download the dataset from internet.
+
+> #### Beware for internet consumption
+> the script will download dataset from internet if data are not in the same directory
 
 ### Running within RStudio
 
