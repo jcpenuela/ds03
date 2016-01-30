@@ -11,11 +11,22 @@ The variables are listed in the next table:
 
 > Since it is not important describe the *exact* meaning of every variable, I show a excerpt as how should it be presented, but not the exact meaning of every variable.
 
+The "time" before variables indicates a mean of timed data.
+The "freq" denotes frequency.
+'.XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+timeBodyAcc.mean.XYZ<br>
+...<br>
+...<br>
+freqBodyGyroJerkMag.meanFreq<br>
+
+
+
 | Variable               | Description    
 | --------------         | -----------
 |  subject               | num: Number which indicate the subject who makes the test. Range is in (1:30)
 |  activity              | factor: Activity made. A factor w/ 6 levels<br> <ul><li>LAYING</li><li>SITTING</li><li>STANDING</li><li>WALKING</li><li>WALKING_DOWNSTAIRS</li><li>WALKING_UPSTAIRS</li></ul>
-| timeBodyAcc.mean.X | num: ...........
+| timeBodyAcc.mean.X | num: Mean, grouped by subject and activity of the timed signal of the accelerometer in X axis.
 | timeBodyAcc.mean.Y | num: ...........
 | timeBodyAcc.mean.Z | num: ...........
 | ... | ...
@@ -24,6 +35,11 @@ The variables are listed in the next table:
 | freqBodyBodyGyroJerkMag.mean | num: ...........
 | freqBodyBodyGyroJerkMag.std | num: ...........
 | freqBodyBodyGyroJerkMag.meanFreq | num: ...........
+
+
+
+
+
 
 
 ### Process for getting the data
