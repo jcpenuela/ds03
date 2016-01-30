@@ -26,18 +26,11 @@ The files contained in this repository are:
 | README.md      | This file, which explain this repository content. 
 | CodeBook.md    | Describe the variables of `end_data.txt` and transformations made from original data to obtain it.
 | run_analysis.R | Code in `R` which take original data from the internet (download it) and give as outcome the `end_data.txt` file. You can run it in [RStudio](https://www.rstudio.com).
-| end_data.txt   | Tidy data with means as result of the process. Its structure is described in `CodeBook.md`.
+| end_data.txt   | Tidy data with means as result of the process. Its structure is described in `CodeBook.md`. This is the outcome of the script `run_analysis.R`.
 
 
-- README.md
-
-The code takes for granted all the data is present in the same folder, un-compressed and without names altered.
-
-`CodeBook.md` describes the variables, the data, and any transformations or work that was performed to clean up the data.
-
-`run_analysis.R` contains all the code to perform the analyses described in the 5 steps. They can be launched in RStudio by just importing the file.
-
-The output of the 5th step is called `averages_data.txt`, and uploaded in the course project's form.
+> #### Rememeber: 
+> the script `run_analysis.R` has the file `end_data.txt` as outcome, so, if you want test the outcome of the script and hold the original of this repo, you might rename it before execute the script.
 
 ## Running script
 
